@@ -93,35 +93,83 @@ async function viewOrders() {
   showMenu();
 }
 
-async function updateOrder() {
-    const index = orders.findIndex(order => order.id);
+async function deleteOrder() {
+  const orderId = await askQuestion("Masukkan id yang ingin dihapus: ");
+  const index = orders.findIndex((order) => order.id === parseInt(orderId));
+
   if (index !== -1) {
-    const namaCustomer = await askQuestion("Masukkan Nama Baru Anda: ");
-    const namaProduk = await askQuestion("Masukkan Nama Baru Produk: ");
-    const jumlahProduk = await askQuestion("Masukkan Jumlah Baru Produk: ");
-
-    orders[index].namaCustomer = namaCustomer;
-    orders[index].namaProduk = namaProduk;
-    orders[index].jumlahProduk = jumlahProduk;
-
-    console.log(`Pesanan ${orderId} diperbarui`);
+    orders.splice(index, 1);
+    console.log(`id dengan ${orderId} berhasil dihapus`);
   } else {
     console.log("Pesanan tidak ditemukan");
   }
   await showMenu();
 }
 
-async function deleteOrder() {
-    const orderId = await askQuestion("Masukkan id yang ingin dihapus: ");
-    const index = orders.findIndex(order => order.id === parseInt(orderId));
-
-    if(index !== -1) {
-        orders.splice(index, 1);
-        console.log(`id dengan ${orderId} berhasil dihapus`);
-    } else {
-        console.log("Pesanan tidak ditemukan");
-    }
-    await showMenu();
-}
-
 login();
+
+/*
+output:
+Masukkan password: 123456
+Login berhasil!
+
+===== MENU UTAMA =====
+1. Buat pesanan baru
+2. Lihat semua pesanan
+3. Perbarui pesanan
+4. Hapus pesanan
+5. Keluar
+======================
+Pilih opsi: 1
+Masukkan Nama Anda: yahya
+Masukkan Nama Produk: teh
+Masukkan Jumlah Produk: 1
+Pesanan berhasil ditambahkan
+===== MENU UTAMA =====
+1. Buat pesanan baru
+2. Lihat semua pesanan
+3. Perbarui pesanan
+4. Hapus pesanan
+5. Keluar
+======================
+Pilih opsi: 2
+daftar Pesanan
+id: 1, nama pelanggan: yahya, jumlah produk: 1
+===== MENU UTAMA =====
+1. Buat pesanan baru
+2. Lihat semua pesanan
+3. Perbarui pesanan
+4. Hapus pesanan
+5. Keluar
+======================
+Pilih opsi: 3
+D:\PROGRAMMING\tugas-js\latihan-perulangan-dan-perbandingan\tugas.js:50
+      await updateOrder();
+      ^
+
+ReferenceError: updateOrder is not defined
+    at handleMenu (D:\PROGRAMMING\tugas-js\latihan-perulangan-dan-perbandingan\tugas.js:50:7)       
+    at showMenu (D:\PROGRAMMING\tugas-js\latihan-perulangan-dan-perbandingan\tugas.js:38:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+Node.js v20.16.0 
+===== MENU UTAMA =====
+1. Buat pesanan baru
+2. Lihat semua pesanan
+3. Perbarui pesanan
+4. Hapus pesanan
+5. Keluar
+======================
+Pilih opsi: 4
+Masukkan id yang ingin dihapus: 1
+Pesanan tidak ditemukan
+===== MENU UTAMA =====
+1. Buat pesanan baru
+2. Lihat semua pesanan
+3. Perbarui pesanan
+4. Hapus pesanan
+5. Keluar
+======================
+Pilih opsi: 5
+Keluar dari aplikasi...
+*/
